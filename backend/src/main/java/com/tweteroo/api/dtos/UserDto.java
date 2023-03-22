@@ -5,10 +5,14 @@ import org.hibernate.validator.constraints.URL;
 import jakarta.validation.constraints.NotBlank;
 
 public record UserDto(
+
   @NotBlank
   String username,
   
+  @URL(protocol = "http")
   @NotBlank
-  @URL(protocol = "http") // Won't work
-  String avatarUrl
-  ) {}
+  String avatar
+  ) {
+
+  }
+  
