@@ -25,8 +25,9 @@ function signUp() {
 
 function loadTweets() {
   page = 0;
-  axios.get(`http://localhost:8080/api/tweets?page=${page}`).then(res => {
-    const tweets = res.data.content;
+  // axios.get(`http://localhost:8080/api/tweets?page=${page}`).then(res => {
+  axios.get(`http://localhost:8080/api/tweets`).then(res => {
+    const tweets = res.data;
     let tweetsHtml = '';
     for (const tweet of tweets) {
       tweetsHtml += Tweet(tweet);
@@ -34,27 +35,34 @@ function loadTweets() {
     document.querySelector(".tweets-page .tweets").innerHTML = tweetsHtml;
     document.querySelector(".pagina-inicial").classList.add("hidden");
     document.querySelector(".tweets-page").classList.remove("hidden");
+  }).catch(err => {
+    console.error(err?.response);
+    if (err.response) {
+      alert(err.response.data);
+    }
   });
 }
 
 function postTweet() {
   const tweet = document.querySelector("#tweet").value;
   axios.post("http://localhost:8080/api/tweets", {
-    text: tweet,
+    tweet,
+    username: _username,
   }, {
     headers: {
       'User': _username
     }
   }).then((response) => {
+    console.log("deu certo"); // TODO
     if (response.status === 201) {
       document.querySelector("#tweet").value = "";
       loadTweets();
-      return
+      return;
     }
     console.error(response);
     alert("Erro ao fazer tweet! Consulte os logs.")
   }).catch(err => {
-    console.error(err);
+    console.error(err?.response);
     if (err.response) {
       alert(err.response.data);
     }
@@ -94,7 +102,7 @@ function goToHome() {
   loadTweets();
 }
 
-function Tweet({ avatar, username, text: tweet }) {
+function Tweet({ avatar, username, tweet }) {
   return `
     <div class="tweet" onclick="loadUserTweets('${username}')">
       <div class="avatar">

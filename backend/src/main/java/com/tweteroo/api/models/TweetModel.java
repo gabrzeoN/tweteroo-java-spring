@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -30,4 +31,8 @@ public class TweetModel {
 
   @Column(length = 200, nullable = false)
   private String tweet;
+
+  @ManyToOne
+  private UserModel user;
+
 }

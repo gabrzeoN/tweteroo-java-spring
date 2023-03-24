@@ -9,7 +9,7 @@ public record UserDto(
   @NotBlank
   String username,
   
-  @URL(protocol = "http")
+  @URL(protocol = "https")
   @NotBlank
   String avatar
   ) {
