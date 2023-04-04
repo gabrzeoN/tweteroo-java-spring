@@ -25,9 +25,8 @@ function signUp() {
 
 function loadTweets() {
   page = 0;
-  // axios.get(`http://localhost:8080/api/tweets?page=${page}`).then(res => {
-  axios.get(`http://localhost:8080/api/tweets`).then(res => {
-    const tweets = res.data;
+  axios.get(`http://localhost:8080/api/tweets?page=${page}`).then(res => {
+    const tweets = res.data.content;
     let tweetsHtml = '';
     for (const tweet of tweets) {
       tweetsHtml += Tweet(tweet);
