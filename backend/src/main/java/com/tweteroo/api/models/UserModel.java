@@ -1,5 +1,6 @@
 package com.tweteroo.api.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tweteroo.api.dtos.UserDto;
@@ -27,13 +28,13 @@ public class UserModel {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(length = 20, nullable = false)
+  @Column(length = 20, nullable = false, unique = true)
   private String username;
 
   @Column(length = 200, nullable = false)
   private String avatar;
 
   @OneToMany(mappedBy = "user")
-  private List<TweetModel> tweets;
-  
+  private List<TweetModel> tweets = new ArrayList<>();
+
 }

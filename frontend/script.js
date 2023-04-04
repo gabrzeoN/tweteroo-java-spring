@@ -53,7 +53,6 @@ function postTweet() {
       'User': _username
     }
   }).then((response) => {
-    console.log("deu certo"); // TODO
     if (response.status === 201) {
       document.querySelector("#tweet").value = "";
       loadTweets();
